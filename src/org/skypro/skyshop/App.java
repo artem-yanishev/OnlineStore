@@ -1,10 +1,10 @@
 package org.skypro.skyshop;
 
 import org.skypro.skyshop.basket.ProductBasket;
-import org.skypro.skyshop.product.DiscountedProduct;
-import org.skypro.skyshop.product.FixPriceProduct;
-import org.skypro.skyshop.product.Product;
-import org.skypro.skyshop.product.SimpleProduct;
+import org.skypro.skyshop.product.*;
+import org.skypro.skyshop.search.SearchEngine;
+
+import java.util.Arrays;
 
 public class App {
     public static void main(String[] args) {
@@ -55,5 +55,31 @@ public class App {
 
         System.out.println("Пункт 10.");
         productBasket.nameCheck("Хлеб");
+
+        SearchEngine searchEngine = new SearchEngine(10);
+        searchEngine.add(p1);
+        searchEngine.add(p2);
+        searchEngine.add(p3);
+        searchEngine.add(p4);
+        searchEngine.add(p5);
+        searchEngine.add(p6);
+
+        Article a1 = new Article("Молоко полезно для костей", "Молоко считается крайне полезным для костей из за содержания в себе кальция");
+        Article a2 = new Article("Как выбрать хлеб?", "Для правильного выбора хлеба...");
+        Article a3 = new Article("Какие сорта сыра бывают?", "Начнём с того, что сыр появился...");
+        searchEngine.add(a1);
+        searchEngine.add(a2);
+        searchEngine.add(a3);
+
+        System.out.println("1");
+        System.out.println(Arrays.toString(searchEngine.search("Молоко")));
+        System.out.println("2");
+        System.out.println(Arrays.toString(searchEngine.search("Яйца")));
+        System.out.println("3");
+        System.out.println(Arrays.toString(searchEngine.search("")));
+        System.out.println("4");
+        System.out.println(Arrays.toString(searchEngine.search(" ")));
+        System.out.println("5");
+        System.out.println(Arrays.toString(searchEngine.search("кальц")));
     }
 }
