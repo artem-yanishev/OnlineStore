@@ -79,5 +79,7 @@ public class App {
         System.out.println(Arrays.toString(searchEngine.search("")));
         System.out.println("4");
         System.out.println(Arrays.toString(searchEngine.search(" ")));
+        System.out.println("5");
+        System.out.println(Arrays.toString(searchEngine.search("кальц")));
     }
 }

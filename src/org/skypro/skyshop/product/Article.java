@@ -3,7 +3,6 @@ package org.skypro.skyshop.product;
 import org.skypro.skyshop.search.Searchable;
 
 public class Article implements Searchable {
-    //По идее они имеют сейчас модификатор "private + (static final по умолчанию)".
     private final String artTitle;
     private final String artText;
 

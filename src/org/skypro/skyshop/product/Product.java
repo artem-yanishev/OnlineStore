@@ -9,6 +9,7 @@ public abstract class Product implements Searchable {
         this.name = name;
     }
 
+    @Override
     public String getName() {
         return name;
     }
