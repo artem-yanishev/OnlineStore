@@ -2,6 +2,7 @@ package org.skypro.skyshop;
 
 import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.product.*;
+import org.skypro.skyshop.search.BestResultNotFound;
 import org.skypro.skyshop.search.SearchEngine;
 
 import java.util.Arrays;
@@ -56,7 +57,7 @@ public class App {
         System.out.println("Пункт 10.");
         productBasket.nameCheck("Хлеб");
 
-        SearchEngine searchEngine = new SearchEngine(10);
+        SearchEngine searchEngine = new SearchEngine(15);
         searchEngine.add(p1);
         searchEngine.add(p2);
         searchEngine.add(p3);
@@ -81,5 +82,30 @@ public class App {
         System.out.println(Arrays.toString(searchEngine.search(" ")));
         System.out.println("5");
         System.out.println(Arrays.toString(searchEngine.search("кальц")));
+
+        try {
+            Product p7 = new SimpleProduct("Масло", 0);
+        } catch (IllegalArgumentException e) {
+            System.err.println(e);
+        }
+        try {
+            Product p8 = new DiscountedProduct("Сметана", 119, (byte) 101);
+        } catch (IllegalArgumentException e) {
+            System.err.println(e);
+        }
+        try {
+            Product p9 = new FixPriceProduct("");
+        } catch (IllegalArgumentException e) {
+            System.err.println(e);
+        }
+
+        System.out.println("\nДемонстрация нового метода поиска:\n");
+
+        try {
+            System.out.println(searchEngine.findingMostSuitable("Молоко"));
+            System.out.println(searchEngine.findingMostSuitable("Батон"));
+        } catch (BestResultNotFound e) {
+            System.err.println(e);
+        }
     }
 }

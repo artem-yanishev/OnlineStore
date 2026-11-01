@@ -32,4 +32,36 @@ public class SearchEngine {
             }
         }
     }
+
+    public Searchable findingMostSuitable(String search) throws BestResultNotFound {
+        Searchable mostSuitable = null;
+        int maxOccurrencesOfSubstring = 0;
+        int counter = 0;
+        for (int i = 0; i < searchable.length; i++) {
+            if (searchable[i] != null && searchable[i].getSearchTerm() != null &&
+                    !searchable[i].getSearchTerm().isBlank()) {
+
+                String str = searchable[i].getSearchTerm();
+
+                if (search != null && !search.isBlank()) {
+                    int substringIndex = str.indexOf(search);
+
+                    while (substringIndex != -1) {
+                        counter++;
+                        int index = substringIndex + search.length();
+                        substringIndex = str.indexOf(search, index);
+                    }
+                }
+                if (counter > maxOccurrencesOfSubstring) {
+                    maxOccurrencesOfSubstring = counter;
+                    mostSuitable = searchable[i];
+                }
+                counter = 0;
+            }
+        }
+        if (mostSuitable == null) {
+            throw new BestResultNotFound("Для поискового запроса (" + search + ") ничего не найдено");
+        }
+        return mostSuitable;
+    }
 }
