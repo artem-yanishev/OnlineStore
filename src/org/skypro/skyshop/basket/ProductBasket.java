@@ -59,6 +59,7 @@ public class ProductBasket {
                 Product element = iterator.next();
                 if (element.getName().equals(name)) {
                     deletedProducts.add(element);
+                    totalCost -= element.getPrice();
                     iterator.remove();
                 }
             }

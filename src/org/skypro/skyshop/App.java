@@ -33,8 +33,8 @@ public class App {
         System.out.println("Пункт 6.");
         System.out.println(productBasket.nameCheck("Банан"));
 
-//        System.out.println("Пункт 7.");
-//        productBasket.clearingTheBasket();
+        System.out.println("Пункт 7.");
+        productBasket.clearingTheBasket();
 
         System.out.println("Пункт 8.");
         productBasket.printBasket();
@@ -94,6 +94,12 @@ public class App {
         } catch (BestResultNotFound e) {
             System.out.println(e);
         }
+
+        productBasket.addToBasket(p1);
+        productBasket.addToBasket(p2);
+        productBasket.addToBasket(p3);
+        System.out.println("Содержимое корзины:");
+        productBasket.printBasket();
 
         System.out.println("1. Удалить существующий продукт из корзины.\n" +
                 "2. Вывести удалённые продукты на экран.");
