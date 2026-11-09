@@ -2,24 +2,20 @@ package org.skypro.skyshop.basket;
 
 import org.skypro.skyshop.product.Product;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
 public class ProductBasket {
-    private Product[] basket = new Product[5];
-    private int counterProducts;
+    private List<Product> basket = new LinkedList<>();
     private int totalCost;
 
     public void addToBasket(Product product) {
-        if (product != null && counterProducts < 5) {
-            for (int i = 0; i < basket.length; i++) {
-                if (basket[i] == null) {
-                    basket[i] = product;
-                    break;
-                }
-            }
-            counterProducts++;
+        if (product != null) {
+            basket.add(product);
             totalCost += product.getPrice();
             System.out.println("Товар - " + product + ", добавлен в корзину");
-        } else {
-            System.out.println("Невозможно добавить продукт");
         }
     }
 
@@ -29,12 +25,12 @@ public class ProductBasket {
 
     public void printBasket() {
         int counterSpecial = 0;
-        if (counterProducts != 0) {
-            for (int i = 0; i < counterProducts; i++) {
-                if (basket[i].isSpecial()) {
+        if (!basket.isEmpty()) {
+            for (int i = 0; i < basket.size(); i++) {
+                if (basket.get(i).isSpecial()) {
                     counterSpecial++;
                 }
-                System.out.println(basket[i]);
+                System.out.println(basket.get(i));
             }
             System.out.println("Итого: " + totalCost);
             System.out.println("Специальных товаров: " + counterSpecial);
@@ -45,9 +41,9 @@ public class ProductBasket {
 
     public boolean nameCheck(String name) {
         boolean flag = false;
-        if (counterProducts != 0) {
-            for (int i = 0; i < counterProducts; i++) {
-                if (basket[i].getName().equals(name)) {
+        if (!basket.isEmpty()) {
+            for (int i = 0; i < basket.size(); i++) {
+                if (basket.get(i).getName().equals(name)) {
                     flag = true;
                 }
             }
@@ -55,11 +51,23 @@ public class ProductBasket {
         return flag;
     }
 
-    public void clearingTheBasket() {
-        for (int i = 0; i < basket.length; i++) {
-            basket[i] = null;
+    public List<Product> removeProductByName(String name) {
+        List<Product> deletedProducts = new ArrayList<>();
+        if (name != null && !name.isBlank()) {
+            Iterator<Product> iterator = basket.iterator();
+            while (iterator.hasNext()) {
+                Product element = iterator.next();
+                if (element.getName().equals(name)) {
+                    deletedProducts.add(element);
+                    iterator.remove();
+                }
+            }
         }
-        counterProducts = 0;
+        return deletedProducts;
+    }
+
+    public void clearingTheBasket() {
+        basket.clear();
         totalCost = 0;
         System.out.println("Корзина очищена");
     }
