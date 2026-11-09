@@ -7,6 +7,9 @@ public class Article implements Searchable {
     private final String artText;
 
     public Article(String artTitle, String artText) {
+        if (artTitle == null || artText == null || artTitle.isBlank() || artText.isBlank()) {
+            throw new IllegalArgumentException("Название или текст пустые");
+        }
         this.artTitle = artTitle;
         this.artText = artText;
     }

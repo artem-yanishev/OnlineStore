@@ -1,23 +1,22 @@
 package org.skypro.skyshop.search;
 
-public class SearchEngine {
-    private Searchable[] searchable;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
-    public SearchEngine(int number) {
-        this.searchable = new Searchable[number];
+public class SearchEngine {
+    private List<Searchable> searchable;
+
+    public SearchEngine() {
+        this.searchable = new LinkedList<>();
     }
 
-    public Searchable[] search(String searchTerm) {
-        Searchable[] searchResult = new Searchable[5];
-        int counter = 0;
-        if (!searchTerm.trim().isEmpty()) {
-            for (int i = 0; i < searchable.length; i++) {
-                if (searchable[i] != null && searchable[i].getSearchTerm().contains(searchTerm)) {
-                    searchResult[counter] = searchable[i];
-                    counter++;
-                    if (counter == 5) {
-                        break;
-                    }
+    public List<Searchable> search(String searchTerm) {
+        List<Searchable> searchResult = new ArrayList<>();
+        if (searchTerm != null && !searchTerm.isBlank()) {
+            for (Searchable value : searchable) {
+                if (value != null && value.getSearchTerm().contains(searchTerm)) {
+                    searchResult.add(value);
                 }
             }
         }
@@ -25,11 +24,8 @@ public class SearchEngine {
     }
 
     public void add(Searchable newSearchable) {
-        for (int i = 0; i < searchable.length; i++) {
-            if (searchable[i] == null) {
-                searchable[i] = newSearchable;
-                break;
-            }
+        if (newSearchable != null) {
+            searchable.add(newSearchable);
         }
     }
 
@@ -37,11 +33,11 @@ public class SearchEngine {
         Searchable mostSuitable = null;
         int maxOccurrencesOfSubstring = 0;
         int counter = 0;
-        for (int i = 0; i < searchable.length; i++) {
-            if (searchable[i] != null && searchable[i].getSearchTerm() != null &&
-                    !searchable[i].getSearchTerm().isBlank()) {
+        for (Searchable value : searchable) {
+            if (value != null && value.getSearchTerm() != null &&
+                    !value.getSearchTerm().isBlank()) {
 
-                String str = searchable[i].getSearchTerm();
+                String str = value.getSearchTerm();
 
                 if (search != null && !search.isBlank()) {
                     int substringIndex = str.indexOf(search);
@@ -54,7 +50,7 @@ public class SearchEngine {
                 }
                 if (counter > maxOccurrencesOfSubstring) {
                     maxOccurrencesOfSubstring = counter;
-                    mostSuitable = searchable[i];
+                    mostSuitable = value;
                 }
                 counter = 0;
             }

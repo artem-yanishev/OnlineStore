@@ -5,8 +5,6 @@ import org.skypro.skyshop.product.*;
 import org.skypro.skyshop.search.BestResultNotFound;
 import org.skypro.skyshop.search.SearchEngine;
 
-import java.util.Arrays;
-
 public class App {
     public static void main(String[] args) {
 
@@ -15,35 +13,25 @@ public class App {
         Product p3 = new DiscountedProduct("Сыр", 329, (byte) 15);
         Product p4 = new SimpleProduct("Коврик", 1000);
         Product p5 = new SimpleProduct("Электрическая зубная щётка", 1999);
-        Product p6 = new SimpleProduct("Водка", 399);
 
         ProductBasket productBasket = new ProductBasket();
-        ProductBasket productBasket2 = new ProductBasket();
 
         System.out.println("Пункт 1.");
         productBasket.addToBasket(p1);
         productBasket.addToBasket(p2);
         productBasket.addToBasket(p3);
 
-        System.out.println("Пункт 2.");
-        productBasket2.addToBasket(p1);
-        productBasket2.addToBasket(p2);
-        productBasket2.addToBasket(p3);
-        productBasket2.addToBasket(p4);
-        productBasket2.addToBasket(p5);
-        productBasket2.addToBasket(p6);
-
         System.out.println("Пункт 3.");
         productBasket.printBasket();
 
         System.out.println("Пункт 4.");
-        productBasket.totalCostBasket();
+        System.out.println(productBasket.totalCostBasket());
 
         System.out.println("Пункт 5.");
-        productBasket.nameCheck("Хлеб");
+        System.out.println(productBasket.nameCheck("Хлеб"));
 
         System.out.println("Пункт 6.");
-        productBasket.nameCheck("Банан");
+        System.out.println(productBasket.nameCheck("Банан"));
 
         System.out.println("Пункт 7.");
         productBasket.clearingTheBasket();
@@ -52,18 +40,17 @@ public class App {
         productBasket.printBasket();
 
         System.out.println("Пункт 9.");
-        productBasket.totalCostBasket();
+        System.out.println(productBasket.totalCostBasket());
 
         System.out.println("Пункт 10.");
-        productBasket.nameCheck("Хлеб");
+        System.out.println(productBasket.nameCheck("Хлеб"));
 
-        SearchEngine searchEngine = new SearchEngine(15);
+        SearchEngine searchEngine = new SearchEngine();
         searchEngine.add(p1);
         searchEngine.add(p2);
         searchEngine.add(p3);
         searchEngine.add(p4);
         searchEngine.add(p5);
-        searchEngine.add(p6);
 
         Article a1 = new Article("Молоко полезно для костей", "Молоко считается крайне полезным для костей из за содержания в себе кальция");
         Article a2 = new Article("Как выбрать хлеб?", "Для правильного выбора хлеба...");
@@ -73,30 +60,30 @@ public class App {
         searchEngine.add(a3);
 
         System.out.println("1");
-        System.out.println(Arrays.toString(searchEngine.search("Молоко")));
+        System.out.println(searchEngine.search("Молоко"));
         System.out.println("2");
-        System.out.println(Arrays.toString(searchEngine.search("Яйца")));
+        System.out.println(searchEngine.search("Яйца"));
         System.out.println("3");
-        System.out.println(Arrays.toString(searchEngine.search("")));
+        System.out.println(searchEngine.search(null));
         System.out.println("4");
-        System.out.println(Arrays.toString(searchEngine.search(" ")));
+        System.out.println(searchEngine.search(" "));
         System.out.println("5");
-        System.out.println(Arrays.toString(searchEngine.search("кальц")));
+        System.out.println(searchEngine.search("кальц"));
 
         try {
             Product p7 = new SimpleProduct("Масло", 0);
         } catch (IllegalArgumentException e) {
-            System.err.println(e);
+            System.out.println(e);
         }
         try {
             Product p8 = new DiscountedProduct("Сметана", 119, (byte) 101);
         } catch (IllegalArgumentException e) {
-            System.err.println(e);
+            System.out.println(e);
         }
         try {
             Product p9 = new FixPriceProduct("");
         } catch (IllegalArgumentException e) {
-            System.err.println(e);
+            System.out.println(e);
         }
 
         System.out.println("\nДемонстрация нового метода поиска:\n");
@@ -105,7 +92,30 @@ public class App {
             System.out.println(searchEngine.findingMostSuitable("Молоко"));
             System.out.println(searchEngine.findingMostSuitable("Батон"));
         } catch (BestResultNotFound e) {
-            System.err.println(e);
+            System.out.println(e);
         }
+
+        productBasket.addToBasket(p1);
+        productBasket.addToBasket(p2);
+        productBasket.addToBasket(p3);
+        System.out.println("Содержимое корзины:");
+        productBasket.printBasket();
+
+        System.out.println("1. Удалить существующий продукт из корзины.\n" +
+                "2. Вывести удалённые продукты на экран.");
+        System.out.println(productBasket.removeProductByName("Молоко"));
+        System.out.println(productBasket.removeProductByName("Хлеб"));
+
+        System.out.println("3. Вывести содержимое корзины с помощью метода printBasket.");
+        productBasket.printBasket();
+
+        System.out.println("4. Удалить несуществующий продукт.\n" +
+                "5. Проверить, что список удалённых продуктов пустой и вывести сообщение “Список пуст”.");
+        if (productBasket.removeProductByName("Батон").isEmpty()) {
+            System.out.println("Список пуст");
+        }
+
+        System.out.println("6. Вывести содержимое корзины на экран.");
+        productBasket.printBasket();
     }
 }
