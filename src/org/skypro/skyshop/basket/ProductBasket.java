@@ -26,11 +26,11 @@ public class ProductBasket {
     public void printBasket() {
         int counterSpecial = 0;
         if (!basket.isEmpty()) {
-            for (int i = 0; i < basket.size(); i++) {
-                if (basket.get(i).isSpecial()) {
+            for (Product product : basket) {
+                if (product.isSpecial()) {
                     counterSpecial++;
                 }
-                System.out.println(basket.get(i));
+                System.out.println(product);
             }
             System.out.println("Итого: " + totalCost);
             System.out.println("Специальных товаров: " + counterSpecial);
@@ -42,8 +42,8 @@ public class ProductBasket {
     public boolean nameCheck(String name) {
         boolean flag = false;
         if (!basket.isEmpty()) {
-            for (int i = 0; i < basket.size(); i++) {
-                if (basket.get(i).getName().equals(name)) {
+            for (Product product : basket) {
+                if (product.getName().equals(name)) {
                     flag = true;
                 }
             }

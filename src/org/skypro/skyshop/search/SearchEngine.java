@@ -7,16 +7,16 @@ import java.util.List;
 public class SearchEngine {
     private List<Searchable> searchable;
 
-    public SearchEngine(int number) {
+    public SearchEngine() {
         this.searchable = new LinkedList<>();
     }
 
     public List<Searchable> search(String searchTerm) {
         List<Searchable> searchResult = new ArrayList<>();
         if (searchTerm != null && !searchTerm.isBlank()) {
-            for (int i = 0; i < searchable.size(); i++) {
-                if (searchable.get(i) != null && searchable.get(i).getSearchTerm().contains(searchTerm)) {
-                    searchResult.add(searchable.get(i));
+            for (Searchable value : searchable) {
+                if (value != null && value.getSearchTerm().contains(searchTerm)) {
+                    searchResult.add(value);
                 }
             }
         }
@@ -33,11 +33,11 @@ public class SearchEngine {
         Searchable mostSuitable = null;
         int maxOccurrencesOfSubstring = 0;
         int counter = 0;
-        for (int i = 0; i < searchable.size(); i++) {
-            if (searchable.get(i) != null && searchable.get(i).getSearchTerm() != null &&
-                    !searchable.get(i).getSearchTerm().isBlank()) {
+        for (Searchable value : searchable) {
+            if (value != null && value.getSearchTerm() != null &&
+                    !value.getSearchTerm().isBlank()) {
 
-                String str = searchable.get(i).getSearchTerm();
+                String str = value.getSearchTerm();
 
                 if (search != null && !search.isBlank()) {
                     int substringIndex = str.indexOf(search);
@@ -50,7 +50,7 @@ public class SearchEngine {
                 }
                 if (counter > maxOccurrencesOfSubstring) {
                     maxOccurrencesOfSubstring = counter;
-                    mostSuitable = searchable.get(i);
+                    mostSuitable = value;
                 }
                 counter = 0;
             }

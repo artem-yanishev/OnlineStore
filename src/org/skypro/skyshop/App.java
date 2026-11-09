@@ -45,7 +45,7 @@ public class App {
         System.out.println("Пункт 10.");
         System.out.println(productBasket.nameCheck("Хлеб"));
 
-        SearchEngine searchEngine = new SearchEngine(15);
+        SearchEngine searchEngine = new SearchEngine();
         searchEngine.add(p1);
         searchEngine.add(p2);
         searchEngine.add(p3);
