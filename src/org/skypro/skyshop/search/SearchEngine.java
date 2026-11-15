@@ -13,7 +13,7 @@ public class SearchEngine {
         Map<String, Searchable> searchResult = new TreeMap<>();
         if (searchTerm != null && !searchTerm.isBlank()) {
             for (Searchable value : searchable) {
-                if (value != null && value.getSearchTerm().contains(searchTerm)) {
+                if (value != null && value.getSearchTerm().toLowerCase().contains(searchTerm.toLowerCase())) {
                     searchResult.put(value.getName(), value);
                 }
             }
@@ -35,9 +35,10 @@ public class SearchEngine {
             if (value != null && value.getSearchTerm() != null &&
                     !value.getSearchTerm().isBlank()) {
 
-                String str = value.getSearchTerm();
+                String str = value.getSearchTerm().toLowerCase();
 
                 if (search != null && !search.isBlank()) {
+                    search = search.toLowerCase();
                     int substringIndex = str.indexOf(search);
 
                     while (substringIndex != -1) {

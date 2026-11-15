@@ -39,7 +39,15 @@ public class ProductBasket {
     }
 
     public boolean nameCheck(String name) {
-        return basket.containsKey(name);
+        if (basket.containsKey(name)) {
+            return true;
+        }
+        for (String key : basket.keySet()) {
+            if (key.equalsIgnoreCase(name)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public List<Product> removeProductByName(String name) {

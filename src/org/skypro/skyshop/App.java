@@ -65,8 +65,8 @@ public class App {
         searchEngine.add(a3);
 
         List<String> stringList = new ArrayList<>();
-        stringList.add("сыр");
-        stringList.add("хлеб");
+        stringList.add("Сыр");
+        stringList.add("Хлеб");
         stringList.add("Молоко");
         stringList.add("Яйца");
         stringList.add(null);
