@@ -4,6 +4,9 @@ import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.product.*;
 import org.skypro.skyshop.search.BestResultNotFound;
 import org.skypro.skyshop.search.SearchEngine;
+import org.skypro.skyshop.search.Searchable;
+
+import java.util.*;
 
 public class App {
     public static void main(String[] args) {
@@ -45,6 +48,8 @@ public class App {
         System.out.println("Пункт 10.");
         System.out.println(productBasket.nameCheck("Хлеб"));
 
+        System.out.println("\nРабота с SearchEngine:\n");
+
         SearchEngine searchEngine = new SearchEngine();
         searchEngine.add(p1);
         searchEngine.add(p2);
@@ -59,16 +64,26 @@ public class App {
         searchEngine.add(a2);
         searchEngine.add(a3);
 
-        System.out.println("1");
-        System.out.println(searchEngine.search("Молоко"));
-        System.out.println("2");
-        System.out.println(searchEngine.search("Яйца"));
-        System.out.println("3");
-        System.out.println(searchEngine.search(null));
-        System.out.println("4");
-        System.out.println(searchEngine.search(" "));
-        System.out.println("5");
-        System.out.println(searchEngine.search("кальц"));
+        List<String> stringList = new ArrayList<>();
+        stringList.add("сыр");
+        stringList.add("хлеб");
+        stringList.add("Молоко");
+        stringList.add("Яйца");
+        stringList.add(null);
+        stringList.add(" ");
+        stringList.add("кальц");
+
+        Iterator<String> iterator = stringList.iterator();
+
+        Map<String, Searchable> searchableMap = new TreeMap<>();
+
+        while (iterator.hasNext()) {
+            String element = iterator.next();
+            searchableMap.putAll(searchEngine.search(element));
+        }
+        for (Searchable searchable : searchableMap.values()) {
+            System.out.println(searchable);
+        }
 
         try {
             Product p7 = new SimpleProduct("Масло", 0);
