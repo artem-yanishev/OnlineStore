@@ -5,6 +5,7 @@ import org.skypro.skyshop.product.*;
 import org.skypro.skyshop.search.BestResultNotFound;
 import org.skypro.skyshop.search.SearchEngine;
 import org.skypro.skyshop.search.Searchable;
+import org.skypro.skyshop.search.SearchableComparator;
 
 import java.util.*;
 
@@ -75,14 +76,14 @@ public class App {
 
         Iterator<String> iterator = stringList.iterator();
 
-        Map<String, Searchable> searchableMap = new TreeMap<>();
+        Set<Searchable> searchableSet = new TreeSet<>(new SearchableComparator());
 
         while (iterator.hasNext()) {
             String element = iterator.next();
-            searchableMap.putAll(searchEngine.search(element));
+            searchableSet.addAll(searchEngine.search(element));
         }
-        for (Searchable searchable : searchableMap.values()) {
-            System.out.println(searchable);
+        for (Searchable searchable : searchableSet) {
+            System.out.println(searchable.getStringRepresentation());
         }
 
         try {
